@@ -8,7 +8,7 @@ COPY package-lock.json ./
 RUN npm install
 
 COPY . .
-RUN npx vite build
+RUN npm run build
 
 # Etapa 2: deploy com Nginx
 FROM nginx:stable-alpine

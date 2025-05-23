@@ -1,13 +1,15 @@
-
 import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  // Pegue a URL da API das variáveis de ambiente do Vite/Vercel
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleLogin = async () => {
     try {
-      const res = await fetch("https://app-boleto-production.up.railway.app/login", {
+      const res = await fetch(`${apiUrl}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: email, password: senha })
@@ -19,7 +21,7 @@ export default function Login() {
       } else {
         alert("Login inválido!");
       }
-    } catch {
+    } catch (e) {
       alert("Erro no login.");
     }
   };

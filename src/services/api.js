@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://app-boleto-production.up.railway.app',
+    baseURL: import.meta.env.VITE_API_URL || 'https://app-boleto-production.up.railway.app',
     headers: {
-        'Content-Type': 'application/json'
-    }
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    },
+    withCredentials: false
 });
 
 // Interceptor para adicionar o token em todas as requisições
@@ -17,6 +20,7 @@ api.interceptors.request.use(
         return config;
     },
     (error) => {
+        console.error('Erro na requisição:', error);
         return Promise.reject(error);
     }
 );
@@ -25,6 +29,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     (error) => {
+        console.error('Erro na resposta:', error);
         if (error.response?.status === 401) {
             localStorage.removeItem('token');
             window.location.href = '/login';

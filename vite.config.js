@@ -7,14 +7,18 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://app-boleto-production.up.railway.app',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
       },
     },
   },
   build: {
     outDir: 'dist',
     sourcemap: true,
+  },
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify('https://app-boleto-production.up.railway.app'),
   }
 })

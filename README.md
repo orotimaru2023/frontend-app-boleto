@@ -82,4 +82,4 @@ O frontend se comunica com a API REST no Railway através do Axios. As principai
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes 
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes

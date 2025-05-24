@@ -2,24 +2,39 @@
   "name": "app-boleto-frontend",
   "version": "1.0.0",
   "description": "Interface web para o sistema de boletos",
+  "type": "module",
   "main": "index.jsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postinstall": "chmod +x node_modules/.bin/vite && chmod +x node_modules/.bin/*"
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "axios": "^1.6.7",
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.1",
+    "react-hook-form": "^7.51.0",
+    "react-query": "^3.39.3",
+    "date-fns": "^3.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.21",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
     "tailwindcss": "^3.4.3",
-    "vite": "^6.3.5"
+    "vite": "^5.1.4",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.2.5"
   },
   "engines": {
     "node": ">=18.0.0"

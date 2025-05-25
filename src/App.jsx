@@ -7,10 +7,18 @@ import Admin from "./pages/Admin";
 import api from './services/api';
 
 function App() {
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Atualiza o token em tempo real quando ele muda no localStorage
+  useEffect(() => {
+    const handleStorage = () => setToken(localStorage.getItem("token"));
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  // Sempre que o token mudar, verifica permissões
   useEffect(() => {
     const verificarPermissoes = async () => {
       if (token) {
@@ -20,17 +28,21 @@ function App() {
         } catch (error) {
           console.error('Erro ao verificar permissões:', error);
           localStorage.removeItem("token");
+          setToken(null);
         }
+      } else {
+        setUserRole(null);
       }
       setLoading(false);
     };
-
     verificarPermissoes();
   }, [token]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setToken(null);
     setUserRole(null);
+    window.dispatchEvent(new Event("storage"));
     window.location.href = "/";
   };
 
@@ -76,7 +88,7 @@ function App() {
         )}
 
         <Routes>
-          <Route path="/" element={!token ? <Login /> : <Navigate to="/boletos" />} />
+          <Route path="/" element={!token ? <Login setToken={setToken} /> : <Navigate to="/boletos" />} />
           <Route path="/register" element={!token ? <Register /> : <Navigate to="/boletos" />} />
           <Route path="/boletos" element={token ? <Boletos /> : <Navigate to="/" />} />
           <Route 

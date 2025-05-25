@@ -1,5 +1,19 @@
 import api from './api';
 
+export const login = async (email, password ) => {
+  try {
+    // O backend FastAPI espera 'username' e 'password'
+    const response = await api.post('/login', {
+      username: email,  // IMPORTANTE: deve ser 'username', não 'email'
+      password: password
+    });
+    
+    // Resto do código...
+  } catch (error) {
+    // Tratamento de erro...
+  }
+};
+
 export const authService = {
     async login(email, password) {
         try {

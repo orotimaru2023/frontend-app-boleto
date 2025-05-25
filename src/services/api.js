@@ -1,18 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
-
-const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL || 'https://app-boleto-production.up.railway.app',
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        // Não precisa adicionar 'Access-Control-Allow-Origin' aqui
     },
     withCredentials: false
 });
@@ -45,4 +38,4 @@ api.interceptors.response.use(
     }
 );
 
-export default api; 
+export default api;

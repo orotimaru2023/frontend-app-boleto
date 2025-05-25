@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from '../services/api';
 
-export default function Login() {
+export default function Login({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -27,6 +27,8 @@ export default function Login() {
 
       if (response.data.access_token) {
         localStorage.setItem("token", response.data.access_token);
+        window.dispatchEvent(new Event("storage")); // Notifica o App sobre a mudança
+        if (setToken) setToken(response.data.access_token); // Também já aciona caso o prop esteja presente
         navigate('/boletos');
       }
     } catch (error) {
